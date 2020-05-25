@@ -71,8 +71,9 @@ namespace Teyhota.CustomKits
             public Vest vest;
             public Backpack backpack;
             public Pants pants;
+            public Glasses glasses;
 
-            public Clothing(Hat hat, Mask mask, Shirt shirt, Vest vest, Backpack backpack, Pants pants)
+            public Clothing(Hat hat, Mask mask, Shirt shirt, Vest vest, Backpack backpack, Pants pants, Glasses glasses)
             {
                 this.hat = hat;
                 this.mask = mask;
@@ -80,6 +81,7 @@ namespace Teyhota.CustomKits
                 this.vest = vest;
                 this.backpack = backpack;
                 this.pants = pants;
+                this.glasses = glasses;
             }
         }
 
@@ -112,6 +114,10 @@ namespace Teyhota.CustomKits
         public class Vest : ClothingData
         {
             public Vest(ushort id, byte quality, byte[] state) : base(id, quality, state) { }
+        }
+        public class Glasses : ClothingData
+        {
+            public Glasses(ushort id, byte quality, byte[] state) : base(id, quality, state) { }
         }
         #endregion
 
@@ -158,6 +164,7 @@ namespace Teyhota.CustomKits
                 Shirt shirt = clothing.shirt;
                 Vest vest = clothing.vest;
                 Pants pants = clothing.pants;
+                Glasses glasses = clothing.glasses;
 
                 if (hat != null)
                 {
@@ -178,6 +185,10 @@ namespace Teyhota.CustomKits
                 if (pants != null)
                 {
                     player.Player.clothing.askWearPants(pants.id, pants.quality, pants.state, true);
+                }
+                if (glasses != null)
+                {
+                    player.Player.clothing.askWearGlasses(glasses.id, pants.quality, pants.state, true);
                 }
             }
 
@@ -263,6 +274,11 @@ namespace Teyhota.CustomKits
                     {
                         player.Player.inventory.removeItem(2, 0);
                     }
+                    player.Player.clothing.askWearGlasses(0, 0, new byte[0], true);
+                    for (byte p2 = 0; p2 < player.Player.inventory.getItemCount(2); p2++)
+                    {
+                        player.Player.inventory.removeItem(2, 0);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -283,7 +299,8 @@ namespace Teyhota.CustomKits
             Vest vest = new Vest(clothing.vest, clothing.vestQuality, clothing.vestState);
             Backpack backpack = new Backpack(clothing.backpack, clothing.backpackQuality, clothing.backpackState);
             Pants pants = new Pants(clothing.pants, clothing.pantsQuality, clothing.pantsState);
-            Clothing clothesList = new Clothing(hat, mask, shirt, vest, backpack, pants);
+            Glasses glasses = new Glasses(clothing.glasses, clothing.glassesQuality, clothing.glassesState);
+            Clothing clothesList = new Clothing(hat, mask, shirt, vest, backpack, pants, glasses);
 
             List<Item> itemList = ListItems(fromPlayer);
             int inventoryCount = itemList.Count;
@@ -420,7 +437,8 @@ namespace Teyhota.CustomKits
             InventoryManager.Vest vest = new InventoryManager.Vest(clothing.vest, clothing.vestQuality, clothing.vestState);
             InventoryManager.Backpack backpack = new InventoryManager.Backpack(clothing.backpack, clothing.backpackQuality, clothing.backpackState);
             InventoryManager.Pants pants = new InventoryManager.Pants(clothing.pants, clothing.pantsQuality, clothing.pantsState);
-            InventoryManager.Clothing clothesList = new InventoryManager.Clothing(hat, mask, shirt, vest, backpack, pants);
+            InventoryManager.Glasses glasses = new InventoryManager.Glasses(clothing.glasses, clothing.glassesQuality, clothing.glassesState);
+            InventoryManager.Clothing clothesList = new InventoryManager.Clothing(hat, mask, shirt, vest, backpack, pants, glasses);
 
             List<InventoryManager.Item> itemList = new List<InventoryManager.Item>();
             int inventoryCount = 0;

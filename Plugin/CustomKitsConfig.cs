@@ -8,7 +8,7 @@ namespace Teyhota.CustomKits.Plugin
     {
         public static CustomKitsConfig Instance;
         
-        public string DisableAutoUpdate;
+        public bool DisableAutoUpdate;
         public string VehicleCommand;
         public string DefaultKitName;
         public bool KeepKitsOnRestart;
@@ -46,7 +46,8 @@ namespace Teyhota.CustomKits.Plugin
         public void LoadDefaults()
         {
             Instance = this;
-            
+
+            DisableAutoUpdate = true;
             DefaultKitName = "Default"; // or "preset_name"
             KeepKitsOnRestart = true;
             KeepKitsOnDeath = true;

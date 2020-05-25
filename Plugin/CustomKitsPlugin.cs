@@ -219,17 +219,20 @@ namespace Teyhota.CustomKits.Plugin
             Write("for Rocket " + RocketVersion + "\n", ConsoleColor.Cyan);
 
             // update check
-            if (Instance.Configuration.Instance.DisableAutoUpdate != "true")
+            if (Instance.Configuration.Instance.DisableAutoUpdate == true)
             {
-                CheckForUpdates("http://plugins.4unturned.tk/plugins/CustomKits/update.xml");
+             //   CheckForUpdates("http://plugins.4unturned.tk/plugins/CustomKits/update.xml");
+             //   Commented out because the domain points to a malicious website (2020.05.24)
             }
 
             // dependency check
+            // possible problem: it only checks the \Servers\[server name]\Libraries folder, while this dll is in \Unturned_Data\Managed\
+            // I wasn't sure if it is an error, so i commented it out. Feel free to de-comment it
             if (!File.Exists(System.IO.Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar + "Libraries" + Path.DirectorySeparatorChar + "Newtonsoft.Json.dll"))
             {
-                Logger.LogError("Dependency 'Newtonsoft.Json.dll' was not found!\nThe 'RetainKitsOnRestart' feature has been disabled!" + "\n");
+            //    Logger.LogError("Dependency 'Newtonsoft.Json.dll' was not found!\nThe 'RetainKitsOnRestart' feature has been disabled!" + "\n");
 
-                Configuration.Instance.KeepKitsOnRestart = false;
+            //    Configuration.Instance.KeepKitsOnRestart = false;
             }
 
             // permission check
@@ -243,7 +246,7 @@ namespace Teyhota.CustomKits.Plugin
             {
                 HasPerms = false;
 
-                Logger.LogError("You need to setup the correct permissions \nif you want players to be able to save more than 1 kit!\n");
+                Logger.LogWarning("You need to setup the correct permissions \nif you want players to be able to save more than 1 kit!\n");
             }
 
             // load offline kits
